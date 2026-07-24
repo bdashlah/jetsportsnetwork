@@ -132,7 +132,7 @@ export default async function Home() {
       <h3
         className={`${leagueSpartan.className} text-3xl font-bold mb-5`}
       >
-        Badgers' defense dominates in Thursday night's matchup against t
+        Badgers' defense dominates in Thursday night's matchup against Salpointe Catholic
       </h3>
 
       <p className="text-gray-300 leading-8">
