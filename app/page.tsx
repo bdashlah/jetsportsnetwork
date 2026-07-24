@@ -2,6 +2,7 @@ import Navbar from "./components/navbar";
 import { League_Spartan } from "next/font/google";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+import Link from "next/link";
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
 });
@@ -108,56 +109,73 @@ export default async function Home() {
   </div>
 
 </section>
-
 {/* ================= LATEST ARTICLES ================= */}
 <section
   id="articles"
-  className="max-w-6xl mx-auto py-20 px-6"
+  className="max-w-6xl mx-auto py-24 px-6"
 >
   <h2
-    className={`${leagueSpartan.className} text-4xl font-bold mb-12`}
+    className={`${leagueSpartan.className} text-4xl font-bold mb-14`}
   >
     Latest Articles
   </h2>
 
-  <div className="grid md:grid-cols-2 gap-12">
+  <div className="grid md:grid-cols-2 gap-16">
 
-    {/* Article 1 */}
-    <article className="border-l-4 border-white pl-6">
+    {/* ================= Article 1 ================= */}
+    <article className="border-l-4 border-white pl-6 flex flex-col">
 
-      <p className="uppercase tracking-[0.25em] text-sm text-gray-400 mb-3">
+      <p className="uppercase tracking-[0.25em] text-sm text-gray-400 mb-4">
         Tucson at Salpointe MBB
       </p>
 
       <h3
-        className={`${leagueSpartan.className} text-3xl font-bold mb-5`}
+        className={`${leagueSpartan.className} text-3xl font-bold leading-tight mb-6`}
       >
-        Badgers' defense dominates in Thursday night's matchup against Salpointe Catholic
+        Badgers' Defense Dominates in Thursday Night Win Over Salpointe Catholic
       </h3>
 
-      <p className="text-gray-300 leading-8">
-      Tucson High earned its fifth straight victory with a 72–55 road win over Salpointe Catholic, using relentless defense to take control after the opening quarter. Sophomore Jaylan Knight led the Badgers with 19 points, while senior Malaki Cunningham-Hiadzi added 15 points and dominated the paint. Tucson now looks to make it six consecutive wins when it hosts Marana in a 6A South matchup.
+      <p className="text-gray-300 leading-8 flex-grow">
+        Tucson High earned its fifth straight victory with a 72–55 road win over
+        Salpointe Catholic, using relentless defense to take control after the
+        opening quarter. Sophomore Jaylan Knight led the Badgers with 19 points,
+        while senior Malaki Cunningham-Hiadzi added 15 points and dominated the
+        paint.
       </p>
+
+      <Link href="/articles/badgers-defense">
+        <button className="mt-8 w-fit bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition font-semibold">
+          Read Story →
+        </button>
+      </Link>
 
     </article>
 
-    {/* Article 2 */}
-    <article className="border-l-4 border-white pl-6">
+    {/* ================= Article 2 ================= */}
+    <article className="border-l-4 border-white pl-6 flex flex-col">
 
-      <p className="uppercase tracking-[0.25em] text-sm text-gray-400 mb-3">
-       Tucson at Walden Grove FB
+      <p className="uppercase tracking-[0.25em] text-sm text-gray-400 mb-4">
+        Tucson at Walden Grove FB
       </p>
 
       <h3
-        className={`${leagueSpartan.className} text-3xl font-bold mb-5`}
+        className={`${leagueSpartan.className} text-3xl font-bold leading-tight mb-6`}
       >
-        Strong Fourth Quarter Secures Tucson High’s First Win of the Season
-
+        Strong Fourth Quarter Secures Tucson High's First Win of the Season
       </h3>
 
-      <p className="text-gray-300 leading-8">
-      Tucson High earned its first victory of the season with a 27–16 comeback win over Walden Grove after trailing 13–7 at halftime. Quarterback Derek Mesa and wide receiver Noah Chanez sparked the second-half rally, connecting on a go-ahead touchdown before Chanez sealed the game with a 65-yard rushing score. A strong defensive effort and timely plays helped the Badgers improve to 1–2 as they head into next week's matchup against Buena.
+      <p className="text-gray-300 leading-8 flex-grow">
+        Tucson High earned its first victory of the season with a 27–16 comeback
+        win over Walden Grove after trailing 13–7 at halftime. Quarterback Derek
+        Mesa and wide receiver Noah Chanez sparked the second-half rally before
+        the Badgers pulled away late to secure the win.
       </p>
+
+      <Link href="/articles/first-win">
+        <button className="mt-8 w-fit bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition font-semibold">
+          Read Story →
+        </button>
+      </Link>
 
     </article>
 
