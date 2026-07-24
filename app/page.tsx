@@ -40,11 +40,13 @@ export default async function Home() {
 
   {/* Hero Content */}
   <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
-    <img
-      src="/JET SPORTS.png"
-      alt="JET Sports Network Logo"
-      className="w-72 h-72 object-contain mb-8"
-    />
+  <Image
+  src="/logo.png"
+  alt="JET Sports Network Logo"
+  width={288}
+  height={288}
+  className="object-contain mb-8"
+/>
 
     <h1
       className={`${leagueSpartan.className} text-6xl md:text-7xl font-bold uppercase mb-4`}
