@@ -1,8 +1,12 @@
+
 import Navbar from "./components/navbar";
 import { League_Spartan } from "next/font/google";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
+
+// Render the homepage dynamically so CMS updates can appear.
+export const dynamic = "force-dynamic";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -13,40 +17,54 @@ export default async function Home() {
   // GALLERY
   // =========================================================
 
-  const { data: gallery } = await supabase
+  const { data: gallery, error: galleryError } = await supabase
     .from("gallery")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(12);
 
+  if (galleryError) {
+    console.error("Gallery error:", galleryError);
+  }
+
   // =========================================================
   // FEATURED STORY
   // =========================================================
 
-  const { data: featuredStory } = await supabase
+  const {
+    data: featuredStory,
+    error: featuredStoryError,
+  } = await supabase
     .from("featured_story")
     .select("*")
-    .order("created_at", { ascending: true })
+    .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
+
+  if (featuredStoryError) {
+    console.error("Featured story error:", featuredStoryError);
+  }
 
   // =========================================================
   // LATEST PUBLISHED ARTICLES
   // =========================================================
 
-  const { data: articles } = await supabase
+  const { data: articles, error: articlesError } = await supabase
     .from("articles")
     .select("*")
     .eq("published", true)
     .order("created_at", { ascending: false })
     .limit(6);
 
+  if (articlesError) {
+    console.error("Articles error:", articlesError);
+  }
+
   return (
     <>
       <Navbar />
 
       <main className="bg-black text-white">
-
         {/* ===================================================
             HERO
         =================================================== */}
@@ -78,7 +96,6 @@ export default async function Home() {
           {/* Hero Content */}
 
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
-
             <Image
               src="/logo.png"
               alt="JET Sports Network Logo"
@@ -97,7 +114,6 @@ export default async function Home() {
               Tucson&apos;s Go-To For Nonstop Local Sports
               Coverage
             </p>
-
           </div>
         </section>
 
@@ -110,7 +126,6 @@ export default async function Home() {
             id="stories"
             className="max-w-6xl mx-auto py-20 px-6"
           >
-
             <h2
               className={`${leagueSpartan.className} text-4xl font-bold mb-10`}
             >
@@ -118,25 +133,21 @@ export default async function Home() {
             </h2>
 
             <div className="grid md:grid-cols-2 gap-10 items-center">
-
               {/* FEATURED IMAGE */}
 
               {featuredStory.image_url && (
                 <div className="relative h-80 rounded-lg overflow-hidden group shadow-xl">
-
                   <img
                     src={featuredStory.image_url}
                     alt={featuredStory.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-
                 </div>
               )}
 
               {/* STORY CONTENT */}
 
               <div>
-
                 <h3 className="text-3xl font-bold mb-4">
                   {featuredStory.title}
                 </h3>
@@ -157,11 +168,8 @@ export default async function Home() {
                     ▶ View Story
                   </a>
                 )}
-
               </div>
-
             </div>
-
           </section>
         )}
 
@@ -173,7 +181,6 @@ export default async function Home() {
           id="articles"
           className="max-w-6xl mx-auto py-24 px-6"
         >
-
           <h2
             className={`${leagueSpartan.className} text-4xl font-bold mb-14`}
           >
@@ -181,16 +188,12 @@ export default async function Home() {
           </h2>
 
           {articles && articles.length > 0 ? (
-
             <div className="grid md:grid-cols-2 gap-16">
-
               {articles.map((article) => (
-
                 <article
                   key={article.id}
                   className="border-l-4 border-white pl-6 flex flex-col"
                 >
-
                   {/* CATEGORY */}
 
                   <p className="uppercase tracking-[0.25em] text-sm text-gray-400 mb-4">
@@ -214,14 +217,12 @@ export default async function Home() {
                   {/* ARTICLE PREVIEW */}
 
                   <p className="text-gray-300 leading-8 flex-grow">
-
                     {article.content.length > 220
                       ? `${article.content.substring(
                           0,
                           220
                         )}...`
                       : article.content}
-
                   </p>
 
                   {/* READ STORY */}
@@ -232,21 +233,14 @@ export default async function Home() {
                   >
                     Read Story →
                   </Link>
-
                 </article>
-
               ))}
-
             </div>
-
           ) : (
-
             <p className="text-gray-500">
               No articles have been published yet.
             </p>
-
           )}
-
         </section>
 
         {/* ===================================================
@@ -257,7 +251,6 @@ export default async function Home() {
           id="gallery"
           className="py-20 overflow-hidden"
         >
-
           <h2
             className={`${leagueSpartan.className} text-4xl font-bold text-center mb-10`}
           >
@@ -265,9 +258,7 @@ export default async function Home() {
           </h2>
 
           <div className="overflow-hidden">
-
             <div className="flex gap-6 animate-scroll w-max">
-
               {/* FIRST SET */}
 
               {gallery?.map((image) => (
@@ -289,11 +280,8 @@ export default async function Home() {
                   className="h-64 w-96 rounded-lg object-cover flex-shrink-0"
                 />
               ))}
-
             </div>
-
           </div>
-
         </section>
 
         {/* ===================================================
@@ -304,11 +292,8 @@ export default async function Home() {
           id="contact"
           className="border-t border-white/10 py-10 px-6"
         >
-
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-
             <div>
-
               <h3 className="text-2xl font-bold">
                 Let&apos;s Connect
               </h3>
@@ -317,7 +302,6 @@ export default async function Home() {
                 Follow JET Sports Network for the latest
                 local sports coverage.
               </p>
-
             </div>
 
             <a
@@ -328,11 +312,8 @@ export default async function Home() {
             >
               @jetsportsnetwork
             </a>
-
           </div>
-
         </footer>
-
       </main>
     </>
   );
